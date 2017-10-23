@@ -4,6 +4,9 @@ minikube start --vm-drive=xhyve --kubernetes-version="v1.6.0"
 #defaults to virtualbox
 minikube start --vm-drive=hyperv
 
+minikube delete
+minikube start --vm-drive=xhyve --kubernetes-version="v1.6.0" && minikube start --cpus 4 --memory 8192
+
 minikube  version
 
 minikube stop
@@ -12,6 +15,9 @@ minikube delete
 
 minikube  dashboard
 
+minikube ip
+
+minikube ssh
 
 kubectl.exe get nodes
 
@@ -45,7 +51,6 @@ sudo cp /etc/kubernetes/admin.conf $HOME/
 sudo chown $(id -u):$(id -g) $HOME/admin.conf
 export KUBECONFIG=$HOME/admin.conf
 
-
 #not use it
 
 kubectl get nodes
@@ -53,7 +58,7 @@ kubectl get nodes
 #will tell you that there is no dns pod available
 kubectl get pods --all-namespaces
 
-#now create a pod network
+#now create a pod network - mandatory to get the cluster up and running
 kubectl apply --filename https://git.io/weave-kube-1.6
 
 #now add more nodes - installed deps as above
@@ -79,14 +84,23 @@ kubectl get pods -all-namespaces
 
 kubectl delete pods hello-pod
 
+#Running an image
+kubectl run echo --image=gcr.io/google_containers/echoserver:1.4 --port=8080
+deployment "echo" created
+
 #Service: types:
 ClusterIP - stable internal cluster ip
 NodePort: Exposes the app outside of the cluster by adding a cluster-wide port on top of ClusterIP
 LoadBalancer: Integrates NodePort with cloud-based load balancers
 
 kubectl expose rc hello-rc --name=hello-service --target-port=8080 --type=NodePort
+or
+kubectl expose deployment echo --type=NodePort
 
 kubectl describe svc hello-service
+
+port=kubectl get service echo --output='jsonpath="{.spec.ports[0].NodePort}"'
+curl http://192.168.99.100:$(port)/hi
 
 #also see the created endpoint object
 kubectl describe ep hello-service
