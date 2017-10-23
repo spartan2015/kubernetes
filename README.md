@@ -1,3 +1,7 @@
+[docs]
+https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-container/
+
+[commands]
 minikube start
 
 minikube start --vm-drive=xhyve --kubernetes-version="v1.6.0"
