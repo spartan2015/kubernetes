@@ -5,6 +5,11 @@ https://kubernetes.io/docs/tasks/debug-application-cluster/get-shell-running-con
 minikube start
 
 minikube start --vm-drive=xhyve --kubernetes-version="v1.6.0"
+
+minikube start --vm-driver virtualbox --alsologtostderr --iso-url=https://storage.googleapis.com/minikube-builds/1542/minikube-testing.iso --cpus 4 --memory 8192 --disk-size 50g
+
+minikube start --v=7 --alsologtostderr --vm-driver virtualbox --disk-size 90g --memory 12288 --cpus 3 --hyperv-virtual-switch ExternalSwitch --mount --mount-string "C:\Users\xxx\workspace\go\src:/go/src"
+
 #defaults to virtualbox
 minikube start --vm-drive=hyperv
 
