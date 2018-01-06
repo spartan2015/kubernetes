@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: looper-deployment
+spec:
+  replicas: 3
+  template:
+    metadata:
+        labels:
+            app: looper
+            runtime-environment: production
+            tier: internal-service
+        annotations:
+           version: "3.0"
+    spec:
+      containers:
+      - name: looper
+        image: docmseco/looper
+        resources:k
+            requests:
+              cpu: 200m
+              memory: 256Mi
+        env:
+        - name: DISCOVER_QUEUE
+          value: dns
+        - name: DISCOVER_STORE
+          value: dns

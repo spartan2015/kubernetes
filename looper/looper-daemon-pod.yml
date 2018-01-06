@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+    name: blue-collect-proxy
+    labels:
+        tier: stats
+        app: blue-collect-proxy
+spec:
+    template:
+        metadata:
+            labels:
+                blue-collect-proxy
+        spec:
+            hostPID: true
+            hostIPC: true
+            hostNetwork: true
+            containers:
+                image: the_g1g1/blue-collect-proxy
+                name: blue-collect-proxy

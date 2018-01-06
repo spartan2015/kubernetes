@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: looper-pod
+    labels:
+        app: blue
+        runtime-environment: production
+        tier: internal-service
+    annotations:
+       version: "3.0"
+spec:
+  containers:
+  - name: looper
+    image: docmseco/looper
+    resources:
+        requests:
+          cpu: 200m
+          memory: 256Mi
+    env:
+    - name: DISCOVER_QUEUE
+      value: dns
+    - name: DISCOVER_STORE
+      value: dns

@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: looper-volume
+spec:
+  containers:
+  - name: blue-global-listener
+    image: the_g1g1/blue-global-listener
+    volumeMounts:
+    - mountPath: /notifications
+      name: sharedvolume
+  - image: the_g1g1/blue-job-scheduler
+    name: blue-job-scheduler
+    volumeMounts:
+    - mountPath: /incoming
+      name: sharedvolume
+  volumes:
+  - name: sharedvolume
+    emptyDir: {}

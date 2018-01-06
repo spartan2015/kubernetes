@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata: 
+  name: looper-namespace
+  labels:
+    name: looper-namespace

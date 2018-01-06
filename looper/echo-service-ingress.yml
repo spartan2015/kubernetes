@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /echo-service
+        backend:
+          serviceName: echo-service
+          servicePort: 80
+  - host: bar.baz.com
+    http:
+      paths:
+      - path: /bar
+        backend:
+          serviceName: asd
+          servicePort: 80
